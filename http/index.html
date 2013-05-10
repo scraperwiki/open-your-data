@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Code your own view!</title>
+    <link rel="stylesheet" href="//x.scraperwiki.com/vendor/style/bootstrap.min.css">
+    <link rel="stylesheet" href="//x.scraperwiki.com/style/scraperwiki.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="//x.scraperwiki.com/vendor/js/bootstrap.min.js"></script>
+    <script src="//x.scraperwiki.com/js/scraperwiki.js"></script>
+    <script src="js/ckan.js"></script>
+  </head>
+  <body>
+    <h2>Hello?</h2>
+    <code>This is some code</code>
+    <div id="content">Stuff</div>
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="control-group">
+          <label class="control-label" for="apikey">CKAN Api Key</label>
+          <div class="controls">
+            <input type="text" name="apikey" id="apikey" placeholder="API Key">
+          </div>
+        </div>
+        <div class="control-group" id="dataset-name-cg">
+          <label class="control-label" for="dataset-name">Name</label>
+          <div class="controls">
+            <input type="text" name="apikey" id="dataset-name" placeholder="Dataset Name">
+            <span class="help-inline" id="dataset-name-error"></span>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="author">Author</label>
+          <div class="controls">
+            <input type="text" name="apikey" id="author" value="Author">
+          </div>
+        </div>
+        <button type="submit" class="btn" id="submitBtn">Submit</button>
+      </fieldset>
+    </form>
+  </body>
+</html>
