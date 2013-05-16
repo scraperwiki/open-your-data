@@ -1,5 +1,9 @@
 describe('Form Handler', function() {
-  it('Do something', function() {
+  beforeEach(function (){
+    var form_handler = new FormHandler();
+  });
+
+  it('Duplicate Name Is Invalid', function() {
     expect(5).to.be.a('number');
   });
 });

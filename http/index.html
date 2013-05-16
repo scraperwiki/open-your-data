@@ -10,15 +10,17 @@
     <script src="//x.scraperwiki.com/js/scraperwiki.js"></script>
     <script src="js/form-handler.js"></script>
     <script src="js/ckan.js"></script>
+    <script src="js/code.js"></script>
   </head>
   <body>
     <h2>Open Your Data</h2>
     <form class="form-horizontal">
       <fieldset>
-        <div class="control-group">
+        <div class="control-group" id="apikey-cg">
           <label class="control-label" for="apikey">CKAN Api Key</label>
           <div class="controls">
             <input type="text" name="apikey" id="apikey" placeholder="API Key">
+            <span class="help-inline" id="apikey-error"></span>
           </div>
         </div>
         <div class="control-group" id="dataset-name-cg">
@@ -28,12 +30,12 @@
             <span class="help-inline" id="dataset-name-error"></span>
           </div>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="author">Author</label>
-          <div class="controls">
-            <input type="text" name="apikey" id="author" value="Author">
-          </div>
-        </div>
+        <ul class="nav nav-tabs nav-stacked"></ul>
+        <p class="controls">
+          <button class="btn btn-small pull-right" id="regenerate">
+          <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
+          </button>
+        </p>
         <button type="submit" class="btn" id="submitBtn">Submit</button>
       </fieldset>
     </form>

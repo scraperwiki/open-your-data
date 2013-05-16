@@ -1,6 +1,6 @@
 $(function(){
   console.log(JSON.stringify(scraperwiki.readSettings(), undefined, 2));
-  console.log(5);
+  console.log(6);
 
   var form_handler = new FormHandler();
   $('#submitBtn').click(function(){
@@ -10,4 +10,4 @@ $(function(){
     }
     return false;
   });
-})
+});

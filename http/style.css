@@ -1,0 +1,33 @@
+ul.nav, p.controls {
+  width: 400px;
+  margin: 20px auto;
+}
+
+li > a > img {
+  margin-right: 4px;
+  vertical-align: -2px;
+}
+
+li .pull-right img {
+  vertical-align: -2px;
+  margin-left: 4px;
+}
+
+li > a.loading,
+li > a.loading:hover {
+  background-color: transparent;
+  color: #999;
+  color: #A9C8D8;
+}
+
+li > a.loading > img {
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 619px) {
+  
+  ul.nav, p.controls {
+    width: 280px;
+  }
+  
+}
