@@ -8,7 +8,7 @@ FormHandler = function() {
     var resources = new Array();
     $('input:checked').each(function() {
       var url = http_url + $(this).siblings('a').attr('href');
-      resources.push({url: url});
+      resources.push({url: url, mimetype: 'csv'});
     });
 
     $.ajax({
@@ -18,7 +18,8 @@ FormHandler = function() {
       headers: {Authorization: apikey},
       data: JSON.stringify({name: datasetName, resources: resources}),
       success: function (jqXHR, textStatus) {
-         alert("Success " + JSON.stringify(jqXHR));
+         console.log(JSON.stringify(jqXHR));
+         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "xxx" + " target='_blank'>here</a></p>");
       },
       error: function (jqXHR, textStatus) {
          alert("Error " +  JSON.stringify(jqXHR));

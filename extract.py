@@ -15,7 +15,7 @@ DEBUG = True # prints debug messages to stdout during run
 
 MAX_ROWS = 5000 # how many rows to request from the SQL API at any one time
 
-USAGE = """Convert data from a ScraperWiki box into CSVs and Excel spreadsheets.
+USAGE = """Convert data from a ScraperWiki box into CSVs.
 Takes one argument: the full URL of the target box, including publishToken.
 Example: ./extract.py http://box.scraperwiki.com/boxName/publishToken"""
 
@@ -33,30 +33,15 @@ def main():
     tables_and_columns = get_tables_and_columns(box_url)
     log(tables_and_columns)
 
-    # This might look a bit complicated, because we're creating
-    # a multi-sheet XLSX and a bunch of CSV files at the same time.
-    # But it's more efficient than two separate loops.
-    # We save state into the database, for the GUI to read.
-    excel_workbook = Workbook(optimized_write = True)
-    save_state('all_tables.xlsx', 'creating')
     for table_name, column_names in tables_and_columns.items():
         csv_filename = "http/%s.csv" % table_name
         save_state("%s.csv" % table_name, 'creating')
         with open(csv_filename, 'wb') as f:
-            # NOTE: create_sheet(title=foo) doesn't appear to name the sheet in
-            # openpyxl version 1.5.7, hence manually setting title afterwards.
-            excel_worksheet = excel_workbook.create_sheet(title=table_name)
-            excel_worksheet.title = table_name
-            excel_worksheet.append(column_names)
             csv_writer = unicodecsv.DictWriter(f, column_names)
             csv_writer.writeheader()
             for chunk_of_rows in get_rows(box_url, table_name):
                 csv_writer.writerows(chunk_of_rows)
-                for row in chunk_of_rows:
-                    excel_worksheet.append(row.values())
         save_state("%s.csv" % table_name, 'completed')
-    excel_workbook.save(filename='http/all_tables.xlsx')
-    save_state('all_tables.xlsx', 'completed')
 
 def log(string):
     if DEBUG: print string
