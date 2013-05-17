@@ -28,7 +28,7 @@ FormHandler = function() {
 
     var resources = new Array();
     $('input:checked').each(function() {
-      var url = http_url + $(this).siblings('a').attr('href');
+      var url = http_url + $(this).attr('value');
       resources.push({url: url, mimetype: 'csv'});
     });
 
