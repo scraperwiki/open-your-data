@@ -18,6 +18,7 @@ FormHandler = function() {
   };
 
   this.submitDataset = function submitDataset() {
+    var datasetTitle = $("#dataset-title").val();
     var datasetName = $("#dataset-name").val();
     var apikey = $("#apikey").val();
     var description = $("#description").val();
@@ -37,6 +38,7 @@ FormHandler = function() {
       url: "http://demo.ckan.org/api/3/action/package_create",
       headers: {Authorization: apikey},
       data: JSON.stringify({
+        title: datasetTitle,
         name: datasetName,
         resources: resources,
         notes: description,
@@ -44,7 +46,7 @@ FormHandler = function() {
       }),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));
-         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.title + " target='_blank'>here</a></p>");
+         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.name + " target='_blank'>here</a></p>");
       },
       error: function (jqXHR, textStatus) {
          alert("Error " +  JSON.stringify(jqXHR));
@@ -84,23 +86,45 @@ FormHandler = function() {
   this.isValid = function isValid() {
     var isValid = true;
 
+    var datasetTitle = $("#dataset-title").val();
     var datasetName = $("#dataset-name").val();
+
+    if(datasetTitle === "") {
+      $("#dataset-title-cg").addClass("error");
+      $("#dataset-title-error").html("Please provide a dataset title");
+      isValid = false;
+    }
 
     if(datasetName === "") {
       $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("Please provide a dataset name.");
+      $("#dataset-name-error").html("Please provide a dataset name");
+      isValid = false;
+    }
+    else if(datasetName.length < 2) {
+      $("#dataset-name-cg").addClass("error");
+      $("#dataset-name-error").html("Dataset name be at least 2 characters");
+      isValid = false;
+    }
+    else if(datasetName.length > 100) {
+      $("#dataset-name-cg").addClass("error");
+      $("#dataset-name-error").html("Dataset name be at less than 101 characters");
+      isValid = false;
+    }
+    else if(!/^[a-z0-9-_]+$/.test(datasetName)) {
+      $("#dataset-name-cg").addClass("error");
+      $("#dataset-name-error").html("Dataset name may only contain lowercase alphanumeric characters, - and _");
       isValid = false;
     }
     else if(isNameUsed(datasetName)) {
       $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("This name is already in use.");
+      $("#dataset-name-error").html("This name is already in use");
       isValid = false;
     } 
 
     var apikey = $("#apikey").val();
     if(apikey === "") {
       $("#apikey-cg").addClass("error");
-      $("#apikey-error").html("Please provide an API key.");
+      $("#apikey-error").html("Please provide an API key");
       isValid = false;
     }
 
