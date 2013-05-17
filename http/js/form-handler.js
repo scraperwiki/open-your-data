@@ -19,7 +19,7 @@ FormHandler = function() {
       data: JSON.stringify({name: datasetName, resources: resources}),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));
-         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "xxx" + " target='_blank'>here</a></p>");
+         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.title + " target='_blank'>here</a></p>");
       },
       error: function (jqXHR, textStatus) {
          alert("Error " +  JSON.stringify(jqXHR));
