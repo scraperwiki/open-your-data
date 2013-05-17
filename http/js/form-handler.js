@@ -2,6 +2,7 @@ FormHandler = function() {
   this.submitDataset = function submitDataset() {
     var datasetName = $("#dataset-name").val();
     var apikey = $("#apikey").val();
+    var description = $("#description").val();
 
     var http_url = scraperwiki.readSettings().source.url + "/http/";
 
@@ -16,7 +17,11 @@ FormHandler = function() {
       dataType: "json",
       url: "http://demo.ckan.org/api/3/action/package_create",
       headers: {Authorization: apikey},
-      data: JSON.stringify({name: datasetName, resources: resources}),
+      data: JSON.stringify({
+        name: datasetName,
+        resources: resources,
+        notes: description
+      }),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));
          $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.title + " target='_blank'>here</a></p>");
