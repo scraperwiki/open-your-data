@@ -1,8 +1,27 @@
 FormHandler = function() {
+  this.setupLicenses = function setupLicenses() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "http://demo.ckan.org/api/3/action/licence_list",
+      headers: {Authorization: apikey},
+      success: function(jqXHR, textStatus) {
+        for (var i = 0; i < jqXHR.result.length; i++) {
+          var license = jqXHR.result[i];
+          $("#license")
+            .append($("<option></option>")
+            .attr("value", license.id)
+            .text(license.title));
+        }
+      }
+    });
+  };
+
   this.submitDataset = function submitDataset() {
     var datasetName = $("#dataset-name").val();
     var apikey = $("#apikey").val();
     var description = $("#description").val();
+    var license_id = $("#license").val();
 
     var http_url = scraperwiki.readSettings().source.url + "/http/";
 
@@ -20,7 +39,8 @@ FormHandler = function() {
       data: JSON.stringify({
         name: datasetName,
         resources: resources,
-        notes: description
+        notes: description,
+        license_id: license_id
       }),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));

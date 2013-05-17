@@ -3,6 +3,7 @@ $(function(){
   console.log(6);
 
   var form_handler = new FormHandler();
+  form_handler.setupLicenses();
   $('#submitBtn').click(function(){
     form_handler.resetErrors();
     if(form_handler.isValid()) {
