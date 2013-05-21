@@ -4,10 +4,17 @@ $(function(){
 
   var form_handler = new FormHandler();
   form_handler.setupLicenses();
+
   $('#apikey').on('input', function() {
     form_handler.setupOrganisations();
   });
-  $('#submitBtn').click(function(){
+
+  $("form").submit(function() {
+    $('#submitBtn').click();
+    return false;
+  });
+
+  $('#submitBtn').click(function() {
     form_handler.resetErrors();
     if(form_handler.isValid()) {
       form_handler.submitDataset();
