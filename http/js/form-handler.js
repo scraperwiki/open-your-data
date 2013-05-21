@@ -17,12 +17,32 @@ FormHandler = function() {
     });
   };
 
+  this.setupOrganisations = function setupOrganisations() {
+    var apikey = $("#apikey").val();
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "http://demo.ckan.org/api/3/action/organization_list_for_user",
+      headers: {Authorization: apikey},
+      success: function(jqXHR, textStatus) {
+        for (var i = 0; i < jqXHR.result.length; i++) {
+          var org = jqXHR.result[i];
+          $("#org")
+            .append($("<option></option>")
+            .attr("value", org.id)
+            .text(org.name));
+        }
+      }
+    });
+  };
+
   this.submitDataset = function submitDataset() {
     var datasetTitle = $("#dataset-title").val();
     var datasetName = $("#dataset-name").val();
     var apikey = $("#apikey").val();
     var description = $("#description").val();
     var license_id = $("#license").val();
+    var org_id = $("#org").val();
 
     var http_url = scraperwiki.readSettings().source.url + "/http/";
 
@@ -42,7 +62,8 @@ FormHandler = function() {
         name: datasetName,
         resources: resources,
         notes: description,
-        license_id: license_id
+        license_id: license_id,
+        owner_org: org_id
       }),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));
