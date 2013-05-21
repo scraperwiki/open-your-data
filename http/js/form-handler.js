@@ -48,8 +48,9 @@ FormHandler = function() {
 
     var resources = new Array();
     $('input:checked').each(function() {
-      var url = http_url + $(this).attr('value');
-      resources.push({url: url, mimetype: 'csv'});
+      var filename = $(this).attr('value');
+      var url = http_url + filename;      
+      resources.push({url: url, format: 'CSV', mimetype: 'text/csv', name: filename});
     });
 
     $.ajax({
@@ -63,7 +64,11 @@ FormHandler = function() {
         resources: resources,
         notes: description,
         license_id: license_id,
-        owner_org: org_id
+        owner_org: org_id,
+        extras: [
+          {key: "Source", value: "http://scraperwiki.com"}
+        ]
+        // groups: [ {name: 'scraperwiki'}]  
       }),
       success: function (jqXHR, textStatus) {
          console.log(JSON.stringify(jqXHR));
