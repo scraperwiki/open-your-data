@@ -5,9 +5,13 @@
     <title>Code your own view!</title>
     <link rel="stylesheet" href="//x.scraperwiki.com/vendor/style/bootstrap.min.css">
     <link rel="stylesheet" href="//x.scraperwiki.com/style/scraperwiki.css">
+    <link rel="stylesheet" href="lib/tagmanager/bootstrap-tagmanager.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//x.scraperwiki.com/vendor/js/bootstrap.min.js"></script>
     <script src="//x.scraperwiki.com/js/scraperwiki.js"></script>
+    <script src="lib/tagmanager/bootstrap-tagmanager.js"></script>
+    <script src="lib/jquery.color-2.1.2.js"></script>
     <script src="js/form-handler.js"></script>
     <script src="js/ckan.js"></script>
     <script src="js/code.js"></script>
@@ -63,10 +67,14 @@
           <div class="controls" id="files">
           </div>
         </div>
+        <div class="control-group" id="tags-cg">
+          <label class="control-label" for="tags">Tags</label>
+          <input type="text" name="tags" id="tags" placeholder="Tags" class="tagManager" autocomplete="off"/>
+        </div>
         <ul class="nav nav-tabs nav-stacked"></ul>
         <p class="controls">
           <button class="btn btn-small pull-right" id="regenerate">
-          <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
+            <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
           </button>
         </p>
         <button type="submit" class="btn" id="submitBtn">Submit</button>

@@ -53,6 +53,12 @@ FormHandler = function() {
       resources.push({url: url, format: 'CSV', mimetype: 'text/csv', name: filename});
     });
 
+    var tags = $("input[name='hidden-tags']").val().split(",");
+    $(tags).each(function(index, value) {
+      tags[index] = {"name": value};
+    });
+    console.debug(JSON.stringify(tags));
+
     $.ajax({
       type: "POST",
       dataType: "json",
@@ -65,6 +71,7 @@ FormHandler = function() {
         notes: description,
         license_id: license_id,
         owner_org: org_id,
+        tags: tags,
         extras: [
           {key: "Source", value: "http://scraperwiki.com"}
         ]
@@ -106,7 +113,7 @@ FormHandler = function() {
 
   this.resetErrors = function resetErrors() {
     $(".control-group").removeClass("error");
-    $("form span").html("");
+    $("form span.help-inline").html("");
   };
 
   this.isValid = function isValid() {
