@@ -80,7 +80,6 @@ function showFiles(files){
     }
 
     if($(elementId + ' span.muted').html() != timeOrLoading){
-      console.log($(elementId + ' span.muted').html(), timeOrLoading)
       $(elementId + ' span.muted').html(timeOrLoading)  // update the time
     }
   })
@@ -99,7 +98,6 @@ function trackProgress(){
 }
 
 function regenerate(){
-  console.log("regenerate");
   scraperwiki.exec('echo "started"; tool/extract.py ' + scraperwiki.readSettings().target.url + ' &> log.txt &')
 }
 

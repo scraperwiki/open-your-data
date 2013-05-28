@@ -9,7 +9,6 @@ FormHandler = function() {
   };
 
   this.getOrganisations = function getOrganisations(apikey) {
-    console.debug("33333" +  apikey)
     return $.ajax({
       type: "GET",
       dataType: "json",
@@ -39,7 +38,6 @@ FormHandler = function() {
     $(tags).each(function(index, value) {
       tags[index] = {"name": value};
     });
-    console.debug(JSON.stringify(tags));
 
     $.ajax({
       type: "POST",
@@ -60,7 +58,6 @@ FormHandler = function() {
         // groups: [ {name: 'scraperwiki'}]  
       }),
       success: function (jqXHR, textStatus) {
-         console.log(JSON.stringify(jqXHR));
          $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.name + " target='_blank'>here</a></p>");
       },
       error: function (jqXHR, textStatus) {

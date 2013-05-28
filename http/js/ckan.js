@@ -10,7 +10,6 @@ $(function(){
   });
 
   var submit = function submit() {
-    console.debug("submit");
     form_handler.resetErrors();
     if(form_handler.isValid()) {
       form_handler.submitDataset();
