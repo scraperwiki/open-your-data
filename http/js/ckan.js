@@ -1,9 +1,12 @@
 $(function(){
+  var form = new Form();
   var form_handler = new FormHandler();
-  form_handler.setupLicenses();
 
-  $('#apikey').on('input', function() {
-    form_handler.setupOrganisations();
+  form_handler.getLicenses().then(form.setLicenses);
+
+  $('#apikey').on('input', function(event) {
+    var apikey = $(event.target).val()
+    form_handler.getOrganisations(apikey).then(form.setOrganisations);
   });
 
   var submit = function submit() {

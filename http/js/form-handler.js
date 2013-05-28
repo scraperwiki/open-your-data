@@ -1,38 +1,20 @@
 FormHandler = function() {
-  this.setupLicenses = function setupLicenses() {
-    $.ajax({
+  this.getLicenses = function getLicenses() {
+    return $.ajax({
       type: "GET",
       dataType: "json",
       url: "http://demo.ckan.org/api/3/action/licence_list",
-      headers: {Authorization: apikey},
-      success: function(jqXHR, textStatus) {
-        for (var i = 0; i < jqXHR.result.length; i++) {
-          var license = jqXHR.result[i];
-          $("#license")
-            .append($("<option></option>")
-            .attr("value", license.id)
-            .text(license.title));
-        }
-      }
+      headers: {Authorization: apikey}
     });
   };
 
-  this.setupOrganisations = function setupOrganisations() {
-    var apikey = $("#apikey").val();
-    $.ajax({
+  this.getOrganisations = function getOrganisations(apikey) {
+    console.debug("33333" +  apikey)
+    return $.ajax({
       type: "GET",
       dataType: "json",
       url: "http://demo.ckan.org/api/3/action/organization_list_for_user",
-      headers: {Authorization: apikey},
-      success: function(jqXHR, textStatus) {
-        for (var i = 0; i < jqXHR.result.length; i++) {
-          var org = jqXHR.result[i];
-          $("#org")
-            .append($("<option></option>")
-            .attr("value", org.id)
-            .text(org.name));
-        }
-      }
+      headers: {Authorization: apikey}
     });
   };
 
