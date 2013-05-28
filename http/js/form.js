@@ -16,4 +16,9 @@ Form = function () {
         .text(org.name));
     });
   };
+
+  this.setError = function setError (selector, message) {
+    $(selector).closest(".control-group").addClass("error");
+    $(selector).siblings(".help-inline").html(message);
+  };
 };

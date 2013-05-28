@@ -95,48 +95,40 @@ FormHandler = function() {
     $("form span.help-inline").html("");
   };
 
-  this.isValid = function isValid() {
+  this.isValid = function isValid(form) {
     var isValid = true;
 
     var datasetTitle = $("#dataset-title").val();
-    var datasetName = $("#dataset-name").val();
-
     if(datasetTitle === "") {
-      $("#dataset-title-cg").addClass("error");
-      $("#dataset-title-error").html("Please provide a dataset title");
+      form.setError("#dataset-title", "Please provide a dataset title")
       isValid = false;
     }
 
+    var datasetName = $("#dataset-name").val();
     if(datasetName === "") {
-      $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("Please provide a dataset name");
+      form.setError("#dataset-name", "Please provide a dataset name")
       isValid = false;
     }
     else if(datasetName.length < 2) {
-      $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("Dataset name be at least 2 characters");
+      form.setError("#dataset-name", "Dataset name be at least 2 characters")
       isValid = false;
     }
     else if(datasetName.length > 100) {
-      $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("Dataset name be at less than 101 characters");
+      form.setError("#dataset-name", "Dataset name be at less than 101 characters")
       isValid = false;
     }
     else if(!/^[a-z0-9-_]+$/.test(datasetName)) {
-      $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("Dataset name may only contain lowercase alphanumeric characters, - and _");
+      form.setError("#dataset-name", "Dataset name may only contain lowercase alphanumeric characters, - and _")
       isValid = false;
     }
     else if(isNameUsed(datasetName)) {
-      $("#dataset-name-cg").addClass("error");
-      $("#dataset-name-error").html("This name is already in use");
+      form.setError("#dataset-name", "This name is already in use")
       isValid = false;
     } 
 
     var apikey = $("#apikey").val();
     if(apikey === "") {
-      $("#apikey-cg").addClass("error");
-      $("#apikey-error").html("Please provide an API key");
+      form.setError("#apikey", "Please provide an API key")
       isValid = false;
     }
 

@@ -11,7 +11,7 @@ $(function(){
 
   var submit = function submit() {
     form_handler.resetErrors();
-    if(form_handler.isValid()) {
+    if(form_handler.isValid(form)) {
       form_handler.submitDataset();
     }
   };
