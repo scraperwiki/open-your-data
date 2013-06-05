@@ -22,7 +22,17 @@
     <form class="form-horizontal">
       <fieldset>
         <div class="control-group">
-          <label class="control-label" for="apikey">CKAN API Key<br>(this is available on your profile page)</label>
+          <label class="control-label" for="license">Data Hub</label>
+          <div class="controls">
+            <select id="hub">
+              <option value="http://demo.ckan.org">demo.ckan.org</option>
+              <option value="http://datahub.io">datahub.io</option>
+              <option value="http://datahub.staging.ckanhosted.com">datahub.staging.ckanhosted.com</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="apikey">API Key<br>(this is available on your profile page)</label>
           <div class="controls">
             <input type="text" name="apikey" id="apikey" placeholder="API Key">
             <span class="help-inline"></span>

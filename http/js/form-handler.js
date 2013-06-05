@@ -1,30 +1,23 @@
 FormHandler = function() {
-  this.getLicenses = function getLicenses() {
+  this.getLicenses = function getLicenses(url) {
     return $.ajax({
       type: "GET",
       dataType: "json",
-      url: "http://demo.ckan.org/api/3/action/licence_list",
+      url: url + "/api/3/action/licence_list",
+      data: JSON.stringify({})
+    });
+  };
+
+  this.getOrganisations = function getOrganisations(apikey, url) {
+    return $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: url + "/api/3/action/organization_list_for_user",
       headers: {Authorization: apikey}
     });
   };
 
-  this.getOrganisations = function getOrganisations(apikey) {
-    return $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "http://demo.ckan.org/api/3/action/organization_list_for_user",
-      headers: {Authorization: apikey}
-    });
-  };
-
-  this.submitDataset = function submitDataset() {
-    var datasetTitle = $("#dataset-title").val();
-    var datasetName = $("#dataset-name").val();
-    var apikey = $("#apikey").val();
-    var description = $("#description").val();
-    var license_id = $("#license").val();
-    var org_id = $("#org").val();
-
+  this.submitDataset = function submitDataset(form) {
     var http_url = scraperwiki.readSettings().source.url + "/http/";
 
     var resources = new Array();
@@ -42,15 +35,15 @@ FormHandler = function() {
     $.ajax({
       type: "POST",
       dataType: "json",
-      url: "http://demo.ckan.org/api/3/action/package_create",
-      headers: {Authorization: apikey},
+      url: form.getDatahubURL() + "/api/3/action/package_create",
+      headers: {Authorization: form.getAPIKey()},
       data: JSON.stringify({
-        title: datasetTitle,
-        name: datasetName,
+        title: form.getDatasetTitle(),
+        name: form.getDatasetName(),
         resources: resources,
-        notes: description,
-        license_id: license_id,
-        owner_org: org_id,
+        notes: form.getDescription(),
+        license_id: form.getLicenseId(),
+        owner_org: form.getOrgId(),
         tags: tags,
         extras: [
           {key: "Source", value: "http://scraperwiki.com"}
@@ -58,7 +51,7 @@ FormHandler = function() {
         // groups: [ {name: 'scraperwiki'}]  
       }),
       success: function (jqXHR, textStatus) {
-         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + "http://demo.ckan.org/dataset/" + jqXHR.result.name + " target='_blank'>here</a></p>");
+         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + form.getDatahubURL() + "/dataset/" + jqXHR.result.name + " target='_blank'>here</a></p>");
       },
       error: function (jqXHR, textStatus) {
          alert("Error " +  JSON.stringify(jqXHR));
@@ -66,14 +59,13 @@ FormHandler = function() {
     });
   };
 
-  function isNameUsed(datasetName) {
+  function isNameUsed(datasetName, url) {
     var used;
 
     $.ajax({
       type: "POST",
       dataType: "json",
-      url: "http://demo.ckan.org/api/3/action/package_list",
-      headers: {Authorization: apikey},
+      url: url + "/api/3/action/package_list",
       data: JSON.stringify({name: datasetName}),
       async: false,
       success: function (jqXHR, textStatus) {
@@ -87,6 +79,7 @@ FormHandler = function() {
          alert("Error " +  JSON.stringify(jqXHR));
       }
     });
+
     return used;
   };
 
@@ -98,13 +91,12 @@ FormHandler = function() {
   this.isValid = function isValid(form) {
     var isValid = true;
 
-    var datasetTitle = $("#dataset-title").val();
-    if(datasetTitle === "") {
+    if(form.getDatasetTitle() === "") {
       form.setError("#dataset-title", "Please provide a dataset title")
       isValid = false;
     }
 
-    var datasetName = $("#dataset-name").val();
+    var datasetName = form.getDatasetName();
     if(datasetName === "") {
       form.setError("#dataset-name", "Please provide a dataset name")
       isValid = false;
@@ -121,13 +113,12 @@ FormHandler = function() {
       form.setError("#dataset-name", "Dataset name may only contain lowercase alphanumeric characters, - and _")
       isValid = false;
     }
-    else if(isNameUsed(datasetName)) {
+    else if(isNameUsed(datasetName, form.getDatahubURL())) {
       form.setError("#dataset-name", "This name is already in use")
       isValid = false;
     } 
 
-    var apikey = $("#apikey").val();
-    if(apikey === "") {
+    if(form.getAPIKey() === "") {
       form.setError("#apikey", "Please provide an API key")
       isValid = false;
     }
