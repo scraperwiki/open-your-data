@@ -1,4 +1,14 @@
-Form = function () {
+Form = function (displayName) {
+  if (!(this instanceof Form)) {
+    return new Form(displayName);
+  }
+
+  __constructor = function () {
+    $("#dataset-title").val(displayName);
+    var slug = displayName.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+    $("#dataset-name").val(slug);
+  }();
+
   this.setLicenses = function setLicenses (licenses) { 
     $("#license").find("option").remove();
     $(licenses.result).each(function (index, license) {

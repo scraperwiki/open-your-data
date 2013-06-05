@@ -1,5 +1,7 @@
+
 $(function(){
-  var form = new Form();
+  var settings = scraperwiki.readSettings();
+  var form = new Form(settings.target.displayName);
   var form_handler = new FormHandler();
 
   $('#apikey').on('input', function(event) {
