@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="//x.scraperwiki.com/vendor/style/bootstrap.min.css">
     <link rel="stylesheet" href="//x.scraperwiki.com/style/scraperwiki.css">
     <link rel="stylesheet" href="lib/tagmanager/bootstrap-tagmanager.css">
+    <link rel="stylesheet" href="style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//x.scraperwiki.com/vendor/js/bootstrap.min.js"></script>
@@ -18,78 +19,77 @@
     <script src="js/code.js"></script>
   </head>
   <body>
+    <a id="feedback" class="btn btn-danger" href="https://github.com/scraperwiki/open-your-data/issues" target="_blank">Report a bug</a>
     <h2>Open Your Data</h2>
-    <form class="form-horizontal">
-      <fieldset>
-        <div class="control-group">
-          <label class="control-label" for="license">Data Hub</label>
-          <div class="controls">
-            <select id="hub">
-              <option value="http://demo.ckan.org">demo.ckan.org</option>
-              <option value="http://datahub.io">datahub.io</option>
-              <option value="http://datahub.staging.ckanhosted.com">datahub.staging.ckanhosted.com</option>
-            </select>
-          </div>
+    <div class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="license">Data Hub</label>
+        <div class="controls">
+          <select id="hub">
+            <option value="http://demo.ckan.org">demo.ckan.org</option>
+            <option value="http://datahub.io">datahub.io</option>
+            <option value="http://datahub.staging.ckanhosted.com">datahub.staging.ckanhosted.com</option>
+          </select>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="apikey">API Key<br>(this is available on your profile page)</label>
-          <div class="controls">
-            <input type="text" name="apikey" id="apikey" placeholder="API Key">
-            <span class="help-inline"></span>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="apikey">API Key<br>(this is available on your profile page)</label>
+        <div class="controls">
+          <input type="text" name="apikey" id="apikey" placeholder="API Key">
+          <span class="help-inline"></span>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="dataset-title">Dataset Title</label>
-          <div class="controls">
-            <input type="text" name="dataset-title" id="dataset-title" placeholder="Dataset Title">
-            <span class="help-inline"></span>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="dataset-title">Dataset Title</label>
+        <div class="controls">
+          <input type="text" name="dataset-title" id="dataset-title" placeholder="Dataset Title">
+          <span class="help-inline"></span>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="dataset-name">Dataset Name</label>
-          <div class="controls">
-            <input type="text" name="dataset-name" id="dataset-name" placeholder="Dataset Name">
-            <span class="help-inline"></span>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="dataset-name">Dataset Name</label>
+        <div class="controls">
+          <input type="text" name="dataset-name" id="dataset-name" placeholder="Dataset Name">
+          <span class="help-inline"></span>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="description">Description<br>(plain text or <a href="http://daringfireball.net/projects/markdown/syntax" target=_blank>markdown</a>)</label>
-          <div class="controls">
-            <textarea name="description" id="description" placeholder="Description"></textarea>
-            <span class="help-inline"></span>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="description">Description<br>(plain text or <a href="http://daringfireball.net/projects/markdown/syntax" target=_blank>markdown</a>)</label>
+        <div class="controls">
+          <textarea name="description" id="description" placeholder="Description"></textarea>
+          <span class="help-inline"></span>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="license">License</label>
-          <div class="controls">
-            <select id="license"></select>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="license">License</label>
+        <div class="controls">
+          <select id="license"></select>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="org">Organisation</label>
-          <div class="controls">
-            <select id="org">
-              <option value="">--</option>
-            </select>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="org">Organisation</label>
+        <div class="controls">
+          <select id="org">
+            <option value="">--</option>
+          </select>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="files">Files</label>
-          <div class="controls" id="files">
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="files">Files</label>
+        <div class="controls" id="files">
         </div>
-        <div class="control-group">
-          <label class="control-label" for="tags">Tags</label>
-          <input type="text" name="tags" id="tags" placeholder="Tags" class="tagManager" autocomplete="off"/>
-        </div>
-        <ul class="nav nav-tabs nav-stacked"></ul>
-        <p class="controls">
-          <button class="btn btn-small pull-right" id="regenerate">
-            <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
-          </button>
-        </p>
-        <button type="submit" class="btn" id="submitBtn">Submit</button>
-      </fieldset>
-    </form>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="tags">Tags</label>
+        <input type="text" name="tags" id="tags" placeholder="Tags" class="tagManager" autocomplete="off"/>
+      </div>
+      <ul class="nav nav-tabs nav-stacked"></ul>
+      <p class="controls">
+        <button class="btn btn-small pull-right" id="regenerate">
+          <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
+        </button>
+      </p>
+      <button type="submit" class="btn" id="submitBtn">Submit</button>
+    </div>
   </body>
 </html>

@@ -64,7 +64,7 @@ function showFiles(files){
 
     if(needToCreate) {
       var label = $("<label class='checkbox'></label>").attr("id", "file_" + file.rowid)
-      var input = $("<input type='checkbox'>").attr('value', file.filename)
+      var input = $("<input type='checkbox' checked='checked'>").attr('value', file.filename)
       var link = $("<a></a>").text(file.filename)
       var span = $("<span class='muted'></span>")
       label.append(input).append(link).append(span)
@@ -106,6 +106,6 @@ $(function(){
   $(document).on('click', '#regenerate', regenerate)
 
   trackProgress()
-  poll = setInterval(trackProgress, 2000)
+  poll = setInterval(trackProgress, 10000)
 
 })
