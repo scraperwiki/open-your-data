@@ -1,3 +1,12 @@
+body {
+  width: 860px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+}
+
 #feedback {
   position: absolute;
   top: 12px;
@@ -10,4 +19,31 @@
 
 #files .muted {
   float: right;
+}
+
+.help-inline {
+  opacity: 0.6;
+}
+
+#tags {
+  width: 100px;
+}
+
+#regenerateWrapper {
+  width: 240px;
+  float: right;
+}
+
+.form-horizontal > .text-center {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  margin: 0 200px;
+}
+
+.form-horizontal .control-label {
+  width: 300px;
+}
+
+.form-horizontal .controls {
+  margin-left: 320px;
 }

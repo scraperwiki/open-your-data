@@ -36,7 +36,7 @@
         <label class="control-label" for="apikey">API Key</label>
         <div class="controls">
           <input type="text" name="apikey" id="apikey" placeholder="API Key">
-          <span class="help-inline">This is available on your profile page</span>
+          <span class="help-inline">Available on your CKAN profile page</span>
         </div>
       </div>
       <div class="control-group">
@@ -75,6 +75,11 @@
         </div>
       </div>
       <div class="control-group">
+        <p id="regenerateWrapper" class="hide">
+          <button class="btn btn-mini" id="regenerate">
+            <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate
+          </button>
+        </p>
         <label class="control-label" for="files">Files</label>
         <div class="controls" id="files">
         </div>
@@ -85,12 +90,9 @@
           <input type="text" name="tags" id="tags" placeholder="Tags" class="tagManager" autocomplete="off"/>
         </div>
       </div>
-      <p class="controls">
-        <button class="btn btn-small pull-right" id="regenerate">
-          <i class="icon-refresh" style="margin-right: 3px"></i> Regenerate all files
-        </button>
+      <p class="text-center">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Publish Data</button>
       </p>
-      <button type="submit" class="btn" id="submitBtn">Submit</button>
     </div>
   </body>
 </html>
