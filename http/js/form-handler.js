@@ -51,7 +51,9 @@ FormHandler = function() {
         // groups: [ {name: 'scraperwiki'}]  
       }),
       success: function (jqXHR, textStatus) {
-         $("form").replaceWith("<p>Your dataset has been successfully registered. You can see it <a href=" + form.getDatahubURL() + "/dataset/" + jqXHR.result.name + " target='_blank'>here</a></p>");
+         $(".form-horizontal").before('<p class="alert alert-success">Your dataset has been successfully registered. You can see it <a href="' + form.getDatahubURL() + "/dataset/" + jqXHR.result.name + '" target="_blank">here</a>.</p>');
+         $(".form-horizontal").find("input, select, button, textarea").attr("disabled", true)
+         window.scrollTo(0, 0)
       },
       error: function (jqXHR, textStatus) {
          alert("Error " +  JSON.stringify(jqXHR));

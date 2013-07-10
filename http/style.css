@@ -5,6 +5,7 @@ body {
 
 h2 {
   text-align: center;
+  margin-top: 0;
 }
 
 #feedback {
@@ -46,4 +47,9 @@ h2 {
 
 .form-horizontal .controls {
   margin-left: 320px;
+}
+
+.alert {
+  width: 600px;
+  margin: 0 auto 40px auto;
 }
