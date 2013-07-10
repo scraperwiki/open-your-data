@@ -1,3 +1,5 @@
+longPollSet = false
+
 function humanOldness(diff){
   // diff should be a value in seconds
 	var	day_diff = Math.floor(diff / 86400)
@@ -41,6 +43,7 @@ function localSql(sql, success, error) {
 function showFiles(files){
   // files should be a list of objects, containing rowids, filenames and ages:
   // [ {rowid: 2, filename: 'test.csv', age: 3600}, {…}, … ]
+  console.log('showFiles')
   var $filesControl = $('#files')
 
   $('label', $filesControl).each(function() {
@@ -56,6 +59,7 @@ function showFiles(files){
       label.remove()
     }
   })
+
 
   $.each(files, function(i, file){
     var elementId = '#file_' + file.rowid
@@ -73,19 +77,27 @@ function showFiles(files){
 
     if(loading){
       var timeOrLoading = 'Creating <img src="loading.gif" width="16" height="16">'
-      $(elementId + ' a').addClass('loading').removeAttr('href')
+      $(elementId).addClass('loading').children('a').removeAttr('href')
     } else {
       var timeOrLoading = humanOldness(file.age)
-      $(elementId + ' a').removeClass('loading').attr('href', file.filename)
+      $(elementId).removeClass('loading').children('a').attr('href', file.filename)
     }
 
     if($(elementId + ' span.muted').html() != timeOrLoading){
       $(elementId + ' span.muted').html(timeOrLoading)  // update the time
     }
   })
+  if ($('#files label').not('.loading').length == window.totalTables && longPollSet == false) {
+    clearTimeout(window.poll)
+    console.log('clear poll')
+    window.longPoll = setInterval(trackProgress, 10000)
+    longPollSet = true
+    console.log('create long poll')
+  }
 }
 
 function trackProgress(){
+  console.log('trackProgress')
   localSql('SELECT rowid, filename, STRFTIME("%s", "now") - STRFTIME("%s", created) AS age FROM _state ORDER BY filename ASC').done(function(files){
     showFiles(files)
   }).fail(function(x, y, z){
@@ -98,14 +110,24 @@ function trackProgress(){
 }
 
 function regenerate(){
+  console.log('regenerate')
+  clearTimeout(window.longPoll)
+  console.log('clear long poll')
+  longPollSet = false
+  window.poll = setInterval(trackProgress, 2000)
+  console.log('create poll')
   scraperwiki.exec('echo "started"; tool/extract.py ' + scraperwiki.readSettings().target.url + ' &> log.txt &')
+  var li = $('<label class="loading"><span class="muted">Creating files <img src="loading.gif" width="16" height="16"></span></label>')
+  li.appendTo('#files')
 }
 
 $(function(){
 
   $(document).on('click', '#regenerate', regenerate)
-
+  
+  scraperwiki.sql.meta(function(meta) {
+    window.totalTables = Object.keys(meta.table).length
+  })
+  
   trackProgress()
-  poll = setInterval(trackProgress, 10000)
-
 })
