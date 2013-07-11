@@ -116,7 +116,7 @@ function regenerate(){
   longPollSet = false
   window.poll = setInterval(trackProgress, 2000)
   console.log('create poll')
-  scraperwiki.exec('echo "started"; tool/extract.py ' + scraperwiki.readSettings().target.url + ' &> log.txt &')
+  scraperwiki.exec('echo "started"; run-one tool/extract.py ' + scraperwiki.readSettings().target.url + ' &> log.txt &')
   var li = $('<label class="loading"><span class="muted">Creating files <img src="loading.gif" width="16" height="16"></span></label>')
   li.appendTo('#files')
 }
