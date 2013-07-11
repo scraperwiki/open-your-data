@@ -1,4 +1,6 @@
 {
   "displayName": "Open your data",
-  "description": "Publish your dataset on CKAN-powered data hubs"
+  "description": "Publish your dataset on CKAN-powered data hubs",
+  "icon": "https://s3-eu-west-1.amazonaws.com/sw-icons/tool-icon-open-your-data.png",
+  "color": "#14d500"
 }
